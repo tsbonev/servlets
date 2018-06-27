@@ -1,6 +1,7 @@
 package server;
 
 import http.LinkCounter;
+import http.PageRecognizer;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
@@ -36,6 +37,7 @@ public final class Jetty {
                 ServletContext servletContext = servletContextEvent.getServletContext();
 
                 servletContext.addServlet("counter", new LinkCounter()).addMapping("/counter");
+                servletContext.addServlet("recognizer", new PageRecognizer()).addMapping("/recognizer");
             }
 
             public void contextDestroyed(ServletContextEvent servletContextEvent) {

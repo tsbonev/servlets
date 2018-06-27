@@ -48,7 +48,7 @@ public class LinkCounterTest {
             oneOf(req).setAttribute("linkOneCount", 0);
             oneOf(req).setAttribute("linkTwoCount", 1);
             oneOf(req).setAttribute("linkThreeCount", 0);
-            oneOf(req).getRequestDispatcher("counter.jsp"); will(returnValue(rd));
+            oneOf(req).getRequestDispatcher("counter/counter.jsp"); will(returnValue(rd));
             oneOf(rd).forward(req, resp);
 
         }});
@@ -66,28 +66,28 @@ public class LinkCounterTest {
             oneOf(req).setAttribute("linkOneCount", 0);
             oneOf(req).setAttribute("linkTwoCount", 1);
             oneOf(req).setAttribute("linkThreeCount", 0);
-            oneOf(req).getRequestDispatcher("counter.jsp"); will(returnValue(rd));
+            oneOf(req).getRequestDispatcher("counter/counter.jsp"); will(returnValue(rd));
             oneOf(rd).forward(req, resp);
 
             oneOf(req).getParameter("link"); will(returnValue("3"));
             oneOf(req).setAttribute("linkOneCount", 0);
             oneOf(req).setAttribute("linkTwoCount", 1);
             oneOf(req).setAttribute("linkThreeCount", 1);
-            oneOf(req).getRequestDispatcher("counter.jsp"); will(returnValue(rd));
+            oneOf(req).getRequestDispatcher("counter/counter.jsp"); will(returnValue(rd));
             oneOf(rd).forward(req, resp);
 
             oneOf(req).getParameter("link"); will(returnValue("1"));
             oneOf(req).setAttribute("linkOneCount", 1);
             oneOf(req).setAttribute("linkTwoCount", 1);
             oneOf(req).setAttribute("linkThreeCount", 1);
-            oneOf(req).getRequestDispatcher("counter.jsp"); will(returnValue(rd));
+            oneOf(req).getRequestDispatcher("counter/counter.jsp"); will(returnValue(rd));
             oneOf(rd).forward(req, resp);
 
             oneOf(req).getParameter("link"); will(returnValue("1"));
             oneOf(req).setAttribute("linkOneCount", 2);
             oneOf(req).setAttribute("linkTwoCount", 1);
             oneOf(req).setAttribute("linkThreeCount", 1);
-            oneOf(req).getRequestDispatcher("counter.jsp"); will(returnValue(rd));
+            oneOf(req).getRequestDispatcher("counter/counter.jsp"); will(returnValue(rd));
             oneOf(rd).forward(req, resp);
 
         }});

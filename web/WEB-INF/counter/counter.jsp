@@ -12,15 +12,15 @@
 </head>
 <body>
 
-<a href="counter?link=1">Link 1 </a>
+<a href="?link=1">Link 1 </a>
 <br>
 <b>${linkOneCount}</b>
 <br>
-<a href="counter?link=2">Link 2 </a>
+<a href="?link=2">Link 2 </a>
 <br>
 <b>${linkTwoCount}</b>
 <br>
-<a href="counter?link=3">Link 3 </a>
+<a href="?link=3">Link 3 </a>
 <br>
 <b>${linkThreeCount}</b>
 

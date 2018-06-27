@@ -39,7 +39,7 @@ public class LinkCounter extends HttpServlet {
         req.setAttribute("linkTwoCount", secondCounter);
         req.setAttribute("linkThreeCount", thirdCounter);
 
-        RequestDispatcher rd = req.getRequestDispatcher("counter.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("counter/counter.jsp");
         rd.forward(req, resp);
 
     }
