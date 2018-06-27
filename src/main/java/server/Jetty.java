@@ -1,11 +1,14 @@
 package server;
 
+import http.PageCounter;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.webapp.Configuration;
+import org.eclipse.jetty.webapp.WebAppContext;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -25,22 +28,22 @@ public final class Jetty {
     }
 
     public void start() {
-        ServletContextHandler servletContext = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        WebAppContext servletContext = new WebAppContext();
+        servletContext.setResourceBase("web/WEB-INF");
         servletContext.setContextPath("/");
+
+        org.eclipse.jetty.webapp.Configuration.ClassList classlist = org.eclipse.jetty.webapp.Configuration.ClassList.setServerDefault(server);
+        classlist.addAfter("org.eclipse.jetty.webapp.FragmentConfiguration", "org.eclipse.jetty.plus.webapp.EnvConfiguration", "org.eclipse.jetty.plus.webapp.PlusConfiguration");
+        classlist.addBefore("org.eclipse.jetty.webapp.JettyWebXmlConfiguration", "org.eclipse.jetty.annotations.AnnotationConfiguration");
+
+        servletContext.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",".*/[^/]*jstl.*\\.jar$");
 
         servletContext.addEventListener(new ServletContextListener() {
 
             public void contextInitialized(ServletContextEvent servletContextEvent) {
                 ServletContext servletContext = servletContextEvent.getServletContext();
 
-                servletContext.addServlet("homeServlet", new HttpServlet() {
-                    @Override
-                    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-                        PrintWriter writer = resp.getWriter();
-                        writer.println("Hello!");
-                        writer.flush();
-                    }
-                }).addMapping("/");
+                servletContext.addServlet("counter", new PageCounter()).addMapping("/counter");
             }
 
             public void contextDestroyed(ServletContextEvent servletContextEvent) {
