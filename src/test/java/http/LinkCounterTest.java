@@ -14,9 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
-
 public class LinkCounterTest {
 
     @Rule
@@ -57,6 +54,47 @@ public class LinkCounterTest {
         }});
 
         linkCounter.doGet(req, resp);
+
+    }
+
+    @Test
+    public void linkCounterRemembersCount() throws ServletException, IOException{
+
+        context.checking(new Expectations(){{
+
+            oneOf(req).getParameter("link"); will(returnValue("2"));
+            oneOf(req).setAttribute("linkOneCount", 0);
+            oneOf(req).setAttribute("linkTwoCount", 1);
+            oneOf(req).setAttribute("linkThreeCount", 0);
+            oneOf(req).getRequestDispatcher("counter.jsp"); will(returnValue(rd));
+            oneOf(rd).forward(req, resp);
+
+            oneOf(req).getParameter("link"); will(returnValue("3"));
+            oneOf(req).setAttribute("linkOneCount", 0);
+            oneOf(req).setAttribute("linkTwoCount", 1);
+            oneOf(req).setAttribute("linkThreeCount", 1);
+            oneOf(req).getRequestDispatcher("counter.jsp"); will(returnValue(rd));
+            oneOf(rd).forward(req, resp);
+
+            oneOf(req).getParameter("link"); will(returnValue("1"));
+            oneOf(req).setAttribute("linkOneCount", 1);
+            oneOf(req).setAttribute("linkTwoCount", 1);
+            oneOf(req).setAttribute("linkThreeCount", 1);
+            oneOf(req).getRequestDispatcher("counter.jsp"); will(returnValue(rd));
+            oneOf(rd).forward(req, resp);
+
+            oneOf(req).getParameter("link"); will(returnValue("1"));
+            oneOf(req).setAttribute("linkOneCount", 2);
+            oneOf(req).setAttribute("linkTwoCount", 1);
+            oneOf(req).setAttribute("linkThreeCount", 1);
+            oneOf(req).getRequestDispatcher("counter.jsp"); will(returnValue(rd));
+            oneOf(rd).forward(req, resp);
+
+        }});
+
+        for(int i = 0; i < 4; i++){
+            linkCounter.doGet(req, resp);
+        }
 
     }
 
