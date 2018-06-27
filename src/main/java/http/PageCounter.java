@@ -7,18 +7,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet("/counter")
 public class PageCounter extends HttpServlet {
 
-    int firstCounter;
-    int secondCounter;
+    int firstCounter = 0;
+    int secondCounter = 0;
+    int thirdCounter = 0;
 
     @Override
     public void init() throws ServletException{
-        firstCounter = 0;
-        secondCounter = 0;
     }
 
     @Override
@@ -32,8 +30,14 @@ public class PageCounter extends HttpServlet {
             link = Integer.parseInt(param);
         }
 
-        if(link == 1) req.setAttribute("linkOneCount", firstCounter++);
-        else if(link == 2) req.setAttribute("linkTwoCount", secondCounter++);
+        if(link == 1) firstCounter++;
+        if(link == 2) secondCounter++;
+        if(link == 3) thirdCounter++;
+
+
+        req.setAttribute("linkOneCount", firstCounter);
+        req.setAttribute("linkTwoCount", secondCounter);
+        req.setAttribute("linkThreeCount", thirdCounter);
 
         RequestDispatcher rd = req.getRequestDispatcher("counter.jsp");
         rd.forward(req, resp);
