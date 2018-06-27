@@ -1,6 +1,7 @@
 package server;
 
 import http.LinkCounter;
+import http.PageGreeter;
 import http.PageRecognizer;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -38,6 +39,7 @@ public final class Jetty {
 
                 servletContext.addServlet("counter", new LinkCounter()).addMapping("/counter");
                 servletContext.addServlet("recognizer", new PageRecognizer()).addMapping("/recognizer");
+                servletContext.addServlet("greeter", new PageGreeter()).addMapping("/greeter");
             }
 
             public void contextDestroyed(ServletContextEvent servletContextEvent) {

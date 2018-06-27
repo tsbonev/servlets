@@ -1,7 +1,5 @@
 package http;
 
-import org.eclipse.jetty.util.IO;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
