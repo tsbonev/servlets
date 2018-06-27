@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/counter")
-public class PageCounter extends HttpServlet {
+public class LinkCounter extends HttpServlet {
 
     int firstCounter = 0;
     int secondCounter = 0;

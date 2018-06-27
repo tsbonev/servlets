@@ -1,24 +1,16 @@
 package server;
 
-import http.PageCounter;
+import http.LinkCounter;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.webapp.Configuration;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 public final class Jetty {
     private final Server server;
@@ -43,7 +35,7 @@ public final class Jetty {
             public void contextInitialized(ServletContextEvent servletContextEvent) {
                 ServletContext servletContext = servletContextEvent.getServletContext();
 
-                servletContext.addServlet("counter", new PageCounter()).addMapping("/counter");
+                servletContext.addServlet("counter", new LinkCounter()).addMapping("/counter");
             }
 
             public void contextDestroyed(ServletContextEvent servletContextEvent) {
